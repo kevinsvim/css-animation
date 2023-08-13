@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a>hover btn</a>
+</body>
+</html>
+<style>
+    * {
+        /* 将文档中所有元素的外边距和内边距初始化为0 */
+        margin: 0; padding: 0;
+    }
+
+    body {
+        /* 设置背景色为黑色 */
+        background-color: #000;
+    }
+
+    a {
+        /* 开启绝对定位,目的是为了配合left与top属性,将脱离正常文档流的a元素移动到屏幕中心【left和top必须搭配position才会生效(position中的static值除外)】  */
+        position: absolute;
+        /* 向右移动整个屏幕50%宽度的距离 */
+        left: 50%;
+        top: 50%;
+        /* 向x与y轴的负方向各自偏移自身(a元素)50%长度的距离【加上left和top，相当于刚好位于屏幕的正中心】 */
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: 100px;
+        color: white;
+        line-height: 100px;
+        font-size: 24px;
+        text-align: center;
+        border-radius: 50px;
+        /* 设置背景颜色渐变 */
+        background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        /* 取消链接下划线 */
+        text-decoration: none;
+        /* 将英文小写字母转换为大写 */
+        text-transform: uppercase;
+        /* 将背景图篇放大为原来的4倍，配合animation完成流动 */
+        background-size: 400%;
+        z-index: 1;
+    }
+
+    a:hover {
+        /* animation要和@keyframes搭配使用，move是随意起的一个动画名称，也是@keyframes规则的名称，
+           8s表示一个循环，infinite表示无限循环下去，alternate表示动画会在每次循环之间交替反向播放 */
+        animation: move 8s infinite alternate;
+    }
+    @keyframes move {
+        /* 100%表示最终时间达到位置，%0可以省略，默认初始 */
+        100% {
+            background-position: -400% 0;
+        }
+    }
+    a:before {
+        content: "";
+        position: absolute;
+        left: -5px;
+        right: -5px;
+        top: -5px;
+        bottom: -5px;
+        /* 以下三个和a元素保持一致 */
+        background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        background-size: 400%;
+        border-radius: 50px;
+        /* 将元素内容模糊化 */
+        filter: blur(20px);
+        z-index: -1;
+    }
+    a:hover:before {
+        animation: move 8s infinite alternate;
+    }
+</style>
